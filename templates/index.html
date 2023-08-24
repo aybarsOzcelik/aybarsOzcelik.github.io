@@ -1,1 +1,245 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Admin Panel</title>
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <!-- DataTables CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css"
+    />
+  </head>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // /add_machine isteğine başarılı bir cevap dönüldüğünde
+      if (window.location.pathname === "/add_machine") {
+        Swal.fire({
+          icon: "success",
+          title: "Yeni makine eklenmiştir!",
+          showConfirmButton: false,
+          timer: 1500,
+        }).then(() => {
+          // Ana sayfaya yönlendirme
+          window.location.href = "/";
+        });
+      }
+    });
+  </script>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <a class="navbar-brand" href="#">Admin Panel</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/newMachine">New Machine</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/login">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/register">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/description">Description</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/services">All Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/service">Service</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+      <h1>Machines</h1>
+
+      <!-- Tabs -->
+      <ul class="nav nav-tabs" id="myTabs" role="tablist">
+        <li class="nav-item">
+          <a
+            class="nav-link active"
+            id="plasma-tab"
+            data-toggle="tab"
+            href="#plasma"
+            role="tab"
+            aria-controls="plasma"
+            aria-selected="true"
+            >Plasma</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            id="laser-tab"
+            data-toggle="tab"
+            href="#laser"
+            role="tab"
+            aria-controls="laser"
+            aria-selected="false"
+            >Laser</a
+          >
+        </li>
+      </ul>
+
+      <!-- Tab Content -->
+      <div class="tab-content" id="myTabsContent">
+        <div
+          class="tab-pane fade show active"
+          id="plasma"
+          role="tabpanel"
+          aria-labelledby="plasma-tab"
+        >
+          <h3>Plasma Tab</h3>
+          <table id="plasmaTable" class="table table-striped">
+            <thead>
+              <tr>
+                <th>Company Name</th>
+                <th>Machine Model No</th>
+                <th>Dimensions</th>
+                <th>Nesting</th>
+                <th>Power Unit</th>
+                <th>Power Unit Serial Number</th>
+                <th>Head Model</th>
+                <th>Head Serial Number</th>
+                <th>Warranty Start Date:</th>
+                <th>Warranty End Date:</th>
+                <th>Remaining Warranty Duration</th>
+                <!-- Diğer sütun başlıkları -->
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Plasma table data will be inserted here -->
+            </tbody>
+          </table>
+        </div>
+        <div
+          class="tab-pane fade"
+          id="laser"
+          role="tabpanel"
+          aria-labelledby="laser-tab"
+        >
+          <h3>Laser Tab</h3>
+          <table id="laserTable" class="table table-striped">
+            <thead>
+              <tr>
+                <th>Company Name</th>
+                <th>Machine Model No</th>
+                <th>Dimensions</th>
+                <th>Nesting</th>
+                <th>Power Unit</th>
+                <th>Power Unit Serial Number</th>
+                <th>Head Model</th>
+                <th>Head Serial Number</th>
+                <th>Warranty Start Date:</th>
+                <th>Warranty End Date:</th>
+                <th>Remaining Warranty Duration</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Laser table data will be inserted here -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <!-- DataTables Bootstrap Integration -->
+    <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        // Plasma tablosundaki verileri çek ve yerleştir
+        $.get("/get_plasma_machines", function (data) {
+          var plasmaTable = $("#plasmaTable").DataTable();
+
+          data.plasma_machines.forEach(function (machine) {
+            plasmaTable.row.add([
+              machine[1],
+              machine[3],
+              machine[4],
+              machine[5],
+              machine[6],
+              machine[7],
+              machine[8],
+              machine[9],
+              machine[10],
+              machine[11],
+              machine[12],
+            ]);
+          });
+
+          plasmaTable.draw(); // DataTable güncellemesini yap
+        });
+
+        // Laser tablosundaki verileri çek ve yerleştir
+        $.get("/get_laser_machines", function (data) {
+          var laserTable = $("#laserTable").DataTable();
+          data.laser_machines.forEach(function (machine) {
+            laserTable.row
+              .add([
+                machine[1],
+                machine[3],
+                machine[4],
+                machine[5],
+                machine[6],
+                machine[7],
+                machine[8],
+                machine[9],
+                machine[10],
+                machine[11],
+                machine[12],
+              ])
+              .draw();
+          });
+        });
+      });
+    </script>
+    <script>
+      /*$(document).ready(function () {
+        // Plasma tablosunu doldur
+        $.get("/get_data", function (data) {
+          var plasmaData = data.plasma;
+          var plasmaTable = $("#plasmaTable").DataTable();
+
+          plasmaData.forEach(function (row) {
+            plasmaTable.row.add([row[1], row[2], row[3]]).draw();
+          });
+
+          // Laser tablosunu doldur
+          var laserData = data.laser;
+          var laserTable = $("#laserTable").DataTable();
+
+          laserData.forEach(function (row) {
+            laserTable.row.add([row[1], row[2], row[3]]).draw(); LASER VE PLAZMA AYRI OLURSA DB DE
+          });
+        });
+      });*/
+    </script>
+  </body>
+</html>
