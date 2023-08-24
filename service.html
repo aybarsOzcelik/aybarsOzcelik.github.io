@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LyApp-Add-Machine</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </head>
+  <body>
+    <h1>Services</h1>
+    <div class="container-fluid">
+      <!-- Page Heading -->
+      <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Technical Service Report</h1>
+      </div>
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">
+                Customer Information
+              </h6>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control form-control-lg"
+                  id="Company_Name_And_Adress"
+                  placeholder="Company Name And Adress"
+                />
+              </div>
+              <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control form-control-lg"
+                  id="Telephone_And_Email"
+                  placeholder="Telephone And E-mail"
+                />
+              </div>
+              <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control form-control-lg"
+                  id="Task"
+                  placeholder="Task"
+                />
+              </div>
+              <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control form-control-lg"
+                  id="Name_Of_The_Responsible"
+                  placeholder="Name Of The Responsible"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">
+                Machine Information
+              </h6>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control form-control-lg"
+                  id="Power_Source"
+                  placeholder="Power Source"
+                />
+              </div>
+              <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control form-control-lg"
+                  id="Machine_Serial_Number"
+                  placeholder="Machine Serial Number"
+                />
+              </div>
+              <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control form-control-lg"
+                  id="Nesting_Software"
+                  placeholder="Nesting Software"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Collapsable Card Example -->
+        </div>
+      </div>
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">Descriptions</h6>
+        </div>
+        <div class="card-body">
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control form-control-lg"
+              id="User_Issues"
+              placeholder="User Issues"
+            />
+          </div>
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control form-control-lg"
+              id="Determination"
+              placeholder="Determination"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">Transactions</h6>
+        </div>
+        <div class="card-body">
+          <div class="form-group">
+            <textarea class="form-control" id="exampleTextarea" rows="4">
+easfasfa</textarea
+            >
+          </div>
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control form-control-lg"
+              id="Result"
+              placeholder="Result"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">
+            Name And Number Of Used Part
+          </h6>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table
+              class="table table-bordered"
+              id="partsTable"
+              width="100%"
+              cellspacing="0"
+            >
+              <thead>
+                <tr>
+                  <th>Part Name</th>
+                  <th>Quantity</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div class="mt-4">
+            <h6 class="m-0 font-weight-bold text-primary">Add Part</h6>
+            <form id="addPartForm">
+              <div class="form-group">
+                <label for="partName">Part Name</label>
+                <input type="text" class="form-control" id="partName" />
+              </div>
+              <div class="form-group">
+                <label for="partQuantity">Quantity</label>
+                <input type="number" class="form-control" id="partQuantity" />
+              </div>
+              <button type="button" class="btn btn-primary" onclick="addPart()">
+                Add
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">Review</h6>
+        </div>
+        <div class="card-body">
+          <div class="form-group">
+            <label for="Report">Report</label>
+            <select class="form-control" id="Report">
+              <option value="Fixed Issue Where">Fixed Issue Where</option>
+              <option value="The Problem Could Not Be Removed">
+                The Problem Could Not Be Removed
+              </option>
+              <option value="Temporary Been Fixed">Temporary Been Fixed</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="Warranty_Status">Warranty Status</label>
+            <select class="form-control" id="Warranty_Status">
+              <option value="Warranty Status In">Warranty Status In</option>
+              <option value="Out Of Warranty">Out Of Warranty</option>
+              <option value="The First Delivery">The First Delivery</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="Error_Source">Error Source</label>
+            <select class="form-control" id="Error_Source">
+              <option value="Error Manufacturing">Error Manufacturing</option>
+              <option value="Ready Track">Ready Track</option>
+              <option value="Customer">Customer</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Service Time</h6>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                <label for="startTime">Start Time</label>
+                <input
+                  type="datetime-local"
+                  class="form-control"
+                  id="startTime"
+                />
+              </div>
+              <div class="form-group">
+                <label for="endTime">End Time</label>
+                <input
+                  type="datetime-local"
+                  class="form-control"
+                  id="endTime"
+                />
+              </div>
+              <button
+                type="button"
+                class="btn btn-primary"
+                onclick="calculateServiceTime()"
+              >
+                Calculate
+              </button>
+              <div class="mt-3">
+                <label for="totalTime">Total Service Time</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="totalTime"
+                  readonly
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Service Officer</h6>
+            </div>
+            <div class="card-body">
+              <canvas
+                id="signatureCanvas1"
+                class="signatureCanvas rounded-lg"
+                width="280px"
+                height="280px"
+                style="width: -webkit-fill-available"
+              ></canvas>
+              <button
+                class="btn btn-primary rounded w-50 my-2"
+                id="saveButton1"
+              >
+                Save Signature
+              </button>
+              <button
+                class="btn btn-primary rounded w-50 my-2"
+                id="clearButton1"
+              >
+                Delete Signature
+              </button>
+              <div id="result1" class="result"></div>
+            </div>
+          </div>
+
+          <!-- Collapsable Card Example -->
+        </div>
+        <div class="col-lg-4">
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">
+                Company Responsible
+              </h6>
+            </div>
+            <div class="card-body">
+              <canvas
+                id="signatureCanvas2"
+                class="signatureCanvas rounded-lg"
+                width="280px"
+                height="280px"
+                style="width: -webkit-fill-available"
+              ></canvas>
+              <button
+                class="btn btn-primary rounded w-50 my-2"
+                id="saveButton2"
+              >
+                Save Signature
+              </button>
+              <button
+                class="btn btn-primary rounded w-50 my-2"
+                id="clearButton2"
+              >
+                Delete Signature
+              </button>
+              <div id="result2" class="result"></div>
+            </div>
+          </div>
+
+          <!-- Collapsable Card Example -->
+        </div>
+
+        <div class="col-lg-12">
+          <div class="card-body text-center">
+            <button class="btn btn-primary rounded w-50 my-2" id="saveService">
+              Save Service
+            </button>
+          </div>
+
+          <!-- Collapsable Card Example -->
+        </div>
+      </div>
+
+      <!-- End of Main Content -->
+
+      <!-- Footer -->
+      <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Copyright &copy; LoyApp 2023</span>
+          </div>
+        </div>
+      </footer>
+      <!-- End of Footer -->
+    </div>
+
+    <script>
+      var canvas1 = document.getElementById("signatureCanvas1");
+      var ctx1 = canvas1.getContext("2d");
+      var isDrawing1 = false;
+      canvas1.addEventListener("mousedown", startDrawing1);
+      canvas1.addEventListener("touchstart", startDrawing1);
+      canvas1.addEventListener("mousemove", draw1);
+      canvas1.addEventListener("touchmove", draw1);
+      canvas1.addEventListener("mouseup", stopDrawing1);
+      canvas1.addEventListener("touchend", stopDrawing1);
+      var clearButton1 = document.getElementById("clearButton1");
+      clearButton1.addEventListener("click", clearSignature1);
+      var saveButton1 = document.getElementById("saveButton1");
+      saveButton1.addEventListener("click", saveSignature1);
+      function startDrawing1(e) {
+        isDrawing1 = true;
+        var pos = getMousePos(canvas1, e);
+        ctx1.moveTo(pos.x, pos.y);
+      }
+      function draw1(e) {
+        if (!isDrawing1) return;
+        e.preventDefault();
+        var pos = getMousePos(canvas1, e);
+        ctx1.lineTo(pos.x, pos.y);
+        ctx1.stroke();
+      }
+      function stopDrawing1(e) {
+        isDrawing1 = false;
+      }
+      function clearSignature1() {
+        ctx1.clearRect(0, 0, canvas1.width, canvas1.height);
+        ctx1.beginPath();
+        // İmzayı temizlemek için aşağıdaki satırı ekleyin
+        var resultDiv = document.getElementById("result1");
+        resultDiv.innerHTML = "";
+      }
+      function saveSignature1() {
+        var imageData = canvas1.toDataURL(); // İmza verisini alır
+        // İmza verisini göndermek veya işlemek için burada yapılacak işlemleri gerçekleştirebilirsiniz
+        // Sonucu göster
+        var resultDiv = document.getElementById("result1");
+        resultDiv.innerHTML =
+          "<img src='" + imageData + "' alt='İmza' width='300' height='300'>";
+      }
+      var canvas2 = document.getElementById("signatureCanvas2");
+      var ctx2 = canvas2.getContext("2d");
+      var isDrawing2 = false;
+      canvas2.addEventListener("mousedown", startDrawing2);
+      canvas2.addEventListener("touchstart", startDrawing2);
+      canvas2.addEventListener("mousemove", draw2);
+      canvas2.addEventListener("touchmove", draw2);
+      canvas2.addEventListener("mouseup", stopDrawing2);
+      canvas2.addEventListener("touchend", stopDrawing2);
+      var clearButton2 = document.getElementById("clearButton2");
+      clearButton2.addEventListener("click", clearSignature2);
+      var saveButton2 = document.getElementById("saveButton2");
+      saveButton2.addEventListener("click", saveSignature2);
+      function startDrawing2(e) {
+        isDrawing2 = true;
+        var pos = getMousePos(canvas2, e);
+        ctx2.moveTo(pos.x, pos.y);
+      }
+      function draw2(e) {
+        if (!isDrawing2) return;
+        e.preventDefault();
+        var pos = getMousePos(canvas2, e);
+        ctx2.lineTo(pos.x, pos.y);
+        ctx2.stroke();
+      }
+      function stopDrawing2(e) {
+        isDrawing2 = false;
+      }
+      function clearSignature2() {
+        ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
+        ctx2.beginPath();
+        // İmzayı temizlemek için aşağıdaki satırı ekleyin
+        var resultDiv = document.getElementById("result2");
+        resultDiv.innerHTML = "";
+      }
+      function saveSignature2() {
+        var imageData = canvas2.toDataURL(); // İmza verisini alır
+        // İmza verisini göndermek veya işlemek için burada yapılacak işlemleri gerçekleştirebilirsiniz
+        // Sonucu göster
+        var resultDiv = document.getElementById("result2");
+        resultDiv.innerHTML =
+          "<img src='" + imageData + "' alt='İmza' width='300' height='300'>";
+      }
+      function getMousePos(canvas, e) {
+        var rect = canvas.getBoundingClientRect();
+        var x, y;
+        if (e.touches) {
+          // Touch event
+          x = e.touches[0].clientX - rect.left;
+          y = e.touches[0].clientY - rect.top;
+        } else {
+          // Mouse event
+          x = e.clientX - rect.left;
+          y = e.clientY - rect.top;
+        }
+        return { x: x, y: y };
+      }
+
+      function addPart() {
+        var partNameInput = document.getElementById("partName");
+        var partQuantityInput = document.getElementById("partQuantity");
+        var tableBody = document
+          .getElementById("partsTable")
+          .getElementsByTagName("tbody")[0];
+
+        var partName = partNameInput.value.trim();
+        var partQuantity = parseInt(partQuantityInput.value);
+
+        if (partName === "") {
+          alert("Please enter a part name.");
+          return;
+        }
+
+        if (isNaN(partQuantity) || partQuantity <= 0) {
+          alert("Please enter a valid quantity.");
+          return;
+        }
+
+        var newRow = tableBody.insertRow();
+        var nameCell = newRow.insertCell(0);
+        var quantityCell = newRow.insertCell(1);
+
+        nameCell.innerHTML = partName;
+        quantityCell.innerHTML = partQuantity;
+
+        partNameInput.value = "";
+        partQuantityInput.value = "";
+      }
+      function calculateServiceTime() {
+        var startTimeInput = document.getElementById("startTime");
+        var endTimeInput = document.getElementById("endTime");
+        var totalTimeInput = document.getElementById("totalTime");
+
+        var startTime = new Date(startTimeInput.value);
+        var endTime = new Date(endTimeInput.value);
+
+        if (isNaN(startTime) || isNaN(endTime)) {
+          alert("Please enter valid start and end times.");
+          return;
+        }
+
+        var timeDiff = Math.abs(endTime.getTime() - startTime.getTime());
+        var totalDays = Math.floor(timeDiff / (1000 * 3600 * 24));
+        var totalHours = Math.floor(
+          (timeDiff % (1000 * 3600 * 24)) / (1000 * 3600)
+        );
+
+        var totalTime = totalDays + " days " + totalHours + " hours";
+        totalTimeInput.value = totalTime;
+      }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>

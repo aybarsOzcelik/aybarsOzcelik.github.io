@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LyApp-Add-Machine</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Your custom CSS -->
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <a class="navbar-brand" href="#">Admin Panel</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Main</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/newMachine">New Machine</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/login">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/register">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/description">Description</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/services">Services</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <ul class="nav nav-tabs" id="myTabs" role="tablist">
+      <li class="nav-item">
+        <a
+          class="nav-link active"
+          id="plasma-tab"
+          data-toggle="tab"
+          href="#plasma"
+          role="tab"
+          aria-controls="plasma"
+          aria-selected="true"
+          >Plasma</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          id="laser-tab"
+          data-toggle="tab"
+          href="#laser"
+          role="tab"
+          aria-controls="laser"
+          aria-selected="false"
+          >Laser</a
+        >
+      </li>
+    </ul>
+
+    <div class="container">
+      <div class="card o-hidden border-0 shadow-lg my-5">
+        <div class="card-body p-0">
+          <!-- Nested Row within Card Body -->
+          <h1 class="text-center">New Machine</h1>
+          <div class="p-5">
+            <div class="text-center"></div>
+            <form
+              action="/add_machine"
+              method="POST"
+              class="user"
+              id="addMachineForm"
+            >
+              <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control form-control-lg"
+                  name="companyName"
+                  placeholder="Company Name"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <select
+                  class="form-control form-control-lg"
+                  id="machineType"
+                  name="machineType"
+                  required
+                >
+                  <option value="" selected disabled>
+                    Choose Machine Type
+                  </option>
+                  {% for machine_type in machine_types %}
+                  <option value="{{ machine_type[0] }}">
+                    {{ machine_type[0] }}
+                  </option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                  <select
+                    class="form-control form-control-lg"
+                    id="machineModel"
+                    name="machineModel"
+                    required
+                  >
+                    <option value="" selected disabled>
+                      Choose Machine Model
+                    </option>
+                  </select>
+                </div>
+                <div class="col-sm-6">
+                  <input
+                    type="text"
+                    class="form-control form-control-lg"
+                    id="machineCode"
+                    placeholder="Machine Code"
+                    oninput="updateChoisenMachine()"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control form-control-lg"
+                  id="choisenMachine"
+                  placeholder="Choisen Machine"
+                  readonly
+                  name="choisen_model"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <select
+                  class="form-control form-control-lg"
+                  id="dimensions"
+                  name="dimensions"
+                  required
+                >
+                  <option value="" selected disabled>Dimensions</option>
+                  <option value="Model 1">DIMENSION 1</option>
+                  <option value="Model 2">DIMENSION 2</option>
+                  <option value="Model 3">DIMENSION 3</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <select
+                  class="form-control form-control-lg"
+                  id="nesting"
+                  name="nesting"
+                  required
+                >
+                  <option value="" selected disabled>Nesting</option>
+                  <option value="PRONEST  LT">PRONEST LT</option>
+                  <option value="PRONEST ADVANCED">PRONEST ADVANCED</option>
+                  <option value="METALIX">METALIX</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control form-control-lg"
+                  id="powerUnit"
+                  placeholder="Power Unit"
+                  name="powerUnit"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control form-control-lg"
+                  id="powerUnitSerial"
+                  placeholder="Power Unit Serial Number"
+                  name="powerUnitSerial"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control form-control-lg"
+                  id="HeadModel"
+                  placeholder="Head Model"
+                  name="headModel"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control form-control-lg"
+                  id="headSerialNumb"
+                  placeholder="Head Serial Number"
+                  name="headSerialNumb"
+                  required
+                />
+              </div>
+              <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                  <label for="startDate">Warranty Start Date:</label>
+                  <input
+                    type="date"
+                    class="form-control form-control-lg"
+                    id="startDate"
+                    onchange="calculateWarrantyDuration()"
+                    name="startDate"
+                    required
+                  />
+                </div>
+                <div class="col-sm-6">
+                  <label for="endDate">Warranty End Date:</label>
+                  <input
+                    type="date"
+                    class="form-control form-control-lg"
+                    id="endDate"
+                    onchange="calculateWarrantyDuration()"
+                    name="endDate"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="remainingWarranty"
+                  >Remaining Warranty Duration:</label
+                >
+                <input
+                  type="text"
+                  class="form-control form-control-lg"
+                  id="remainingWarranty"
+                  readonly
+                  name="remainingWarranty"
+                />
+              </div>
+              <button
+                class="btn btn-primary btn-block form-control-lg"
+                id="addMachineBtn"
+                type="submit"
+              >
+                Add
+              </button>
+            </form>
+            <hr />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JavaScript dependencies (jQuery, Bootstrap, etc.) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Your custom JavaScript -->
+    <script>
+      function updateChoisenMachine() {
+        var machineModel = document.getElementById("machineModel").value;
+        var machineCode = document.getElementById("machineCode").value;
+
+        if (machineModel && machineCode) {
+          var choisenMachine = machineModel + "-" + machineCode;
+          document.getElementById("choisenMachine").value = choisenMachine;
+        } else {
+          document.getElementById("choisenMachine").value = "";
+        }
+      }
+      function calculateWarrantyDuration() {
+        var startDate = document.getElementById("startDate").value;
+        var endDate = document.getElementById("endDate").value;
+
+        if (startDate && endDate) {
+          var start = new Date(startDate);
+          var end = new Date(endDate);
+
+          if (start <= end) {
+            var remainingTime = end.getTime() - start.getTime();
+            var remainingDays = Math.ceil(remainingTime / (1000 * 3600 * 24));
+            document.getElementById("remainingWarranty").value =
+              remainingDays + " days";
+          } else {
+            document.getElementById("remainingWarranty").value =
+              "Invalid date range";
+          }
+        } else {
+          document.getElementById("remainingWarranty").value = "";
+        }
+      }
+
+      $(document).ready(function () {
+        // Makine türü seçildiğinde
+        $("#machineType").change(function () {
+          var selectedType = $(this).val();
+          var machineModels = {};
+
+          // Makine türüne ait modelleri veritabanından çek
+          $.get("/get_machine_models/" + selectedType, function (data) {
+            machineModels = data.models;
+
+            // Makine modellerini güncelle
+            var machineModelSelect = $("#machineModel");
+            machineModelSelect.empty();
+
+            machineModelSelect.append(
+              '<option value="" selected disabled>Choose Machine Model</option>'
+            );
+            for (var i = 0; i < machineModels.length; i++) {
+              machineModelSelect.append(
+                '<option value="' +
+                  machineModels[i] +
+                  '">' +
+                  machineModels[i] +
+                  "</option>"
+              );
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
